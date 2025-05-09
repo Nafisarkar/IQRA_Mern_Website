@@ -9,6 +9,7 @@ import Themecontextprovider from "./components/provider/themecontextprovider";
 import Aboutuspage from "./components/pages/aboutuspage";
 import Contactuspage from "./components/pages/contactuspage";
 import Termsofusepage from "./components/pages/termsofusepage";
+import DonationPage from "./components/pages/donationpage";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
               <Route path="/aboutus" element={<Aboutuspage />} />
               <Route path="/termsofuse" element={<Termsofusepage />} />
               <Route path="/contactus" element={<Contactuspage />} />
+              <Route path="/donation" element={<DonationPage />} />
               <Route path="*" element={<Notfoundpage />} />
             </Routes>
           </div>

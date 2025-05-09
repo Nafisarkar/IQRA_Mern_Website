@@ -2,8 +2,9 @@
 
 const createHttpError = require("http-errors");
 const Post = require("../models/postModel");
+const { findPostByIdHelper } = require("../helpers/postHandler");
 
-//endpoint -> /api/posts
+//get all posts from the db
 //endpoint -> /api/posts
 const getAllPosts = async (req, res, next) => {
   try {
@@ -58,16 +59,8 @@ const getPostById = async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    // Check for valid MongoDB ID format to avoid CastError
-    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-      return next(createHttpError(400, "Invalid post ID format"));
-    }
+    const requestedPost = await findPostByIdHelper(id);
 
-    const requestedPost = await Post.findById(id);
-
-    if (!requestedPost) {
-      next(createHttpError(404, "Post does not exits"));
-    }
     // Return with explicit status code and pagination info
     return res.status(200).json({
       success: true,
@@ -125,8 +118,32 @@ const addPost = async (req, res, next) => {
       );
     }
 
+    // Validate category
+    const validCategories = ["quran", "hadith", "fatwa"];
+    if (!validCategories.includes(category)) {
+      return next(
+        createHttpError(400, "Category must be one of: quran, hadith, fatwa")
+      );
+    }
+
+    // Prepare post data with defaults
+    const postData = {
+      title,
+      english,
+      category,
+      arabic: req.body.arabic || "",
+      bangla: req.body.bangla || "",
+      tags: Array.isArray(req.body.tags) ? req.body.tags : [],
+      author: req.body.author || "unknown",
+      status: ["published", "draft"].includes(req.body.status)
+        ? req.body.status
+        : "draft",
+      // Generate slug if not provided
+      slug: req.body.slug || title.toLowerCase().replace(/\s+/g, "-"),
+    };
+
     // Create post with validated data
-    const newPost = await Post.create(req.body);
+    const newPost = await Post.create(postData);
 
     // Return with 201 Created status code
     return res.status(201).json({
@@ -152,6 +169,46 @@ const updateViewCount = async (req, res, next) => {
   try {
     const id = req.params.id;
 
+    // Validate ID format
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      return next(createHttpError(400, "Invalid post ID format"));
+    }
+
+    // Increment view count and return updated document in one operation
+    const updatedPost = await Post.findByIdAndUpdate(
+      id,
+      { $inc: { views: 1 } },
+      { new: true }
+    );
+
+    // Check if post exists
+    if (!updatedPost) {
+      return next(createHttpError(404, "Post not found"));
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "View count updated successfully",
+      payload: updatedPost,
+    });
+  } catch (error) {
+    // Handle MongoDB specific errors
+    if (error.name === "CastError") {
+      return next(createHttpError(400, "Invalid post ID format"));
+    }
+
+    return next(
+      createHttpError(500, `Error updating view count: ${error.message}`)
+    );
+  }
+};
+
+//update a post to db
+//endpoint -> /api/postupdatebyid/:id
+const updatePostById = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
     // Check for valid MongoDB ID format to avoid CastError
     if (!id.match(/^[0-9a-fA-F]{24}$/)) {
       return next(createHttpError(400, "Invalid post ID format"));
@@ -160,25 +217,23 @@ const updateViewCount = async (req, res, next) => {
     const requestedPost = await Post.findById(id);
 
     if (!requestedPost) {
-      next(createHttpError(404, "Post does not exits"));
+      return next(createHttpError(404, "Post does not exist"));
     }
 
     const updatedPost = await Post.findByIdAndUpdate(
       id,
-      { $inc: { views: 1 } },
+      { $set: req.body },
       { new: true }
     );
 
-    // Return with 201 Created status code
-    return res.status(201).json({
+    return res.status(200).json({
       success: true,
-      message: "Updated view counter",
+      message: "Post updated successfully",
       payload: updatedPost,
     });
   } catch (error) {
-    // Handle other errors
     return next(
-      createHttpError(500, `Error updateing view post: ${error.message}`)
+      createHttpError(500, `Error updating post by id: ${error.message}`)
     );
   }
 };
@@ -220,5 +275,6 @@ module.exports = {
   searchPostByTitle,
   updateViewCount,
   addPost,
+  updatePostById,
   deletePostById,
 };

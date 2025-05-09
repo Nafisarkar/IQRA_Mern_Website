@@ -4,6 +4,7 @@ import {
   FaGithub,
   FaGlobe,
   FaMapMarkerAlt,
+  FaUser,
   FaPhone,
   FaEnvelope,
 } from "react-icons/fa";
@@ -26,20 +27,31 @@ const Contactuspage = () => {
               যোগাযোগের ঠিকানা
             </h2>
             <p className="font-hind flex items-center gap-3 mb-2">
+              <FaUser className="text-lg" /> <strong>নাম:</strong> হাসান আব্দুল
+              মোইদ
+            </p>
+            <p className="font-hind flex items-center gap-3 mb-2">
               <FaMapMarkerAlt className="text-lg" /> <strong>ঠিকানা:</strong>{" "}
               ঢাকা, বাংলাদেশ
             </p>
             <p className="font-hind flex items-center gap-3 mb-2">
-              <FaPhone className="text-lg" /> <strong>ফোন:</strong> +৮৮০
-              ১৭১১-১২৩৪৫৬
+              <FaPhone className="text-lg" /> <strong>ফোন:</strong>
+              <p className="font-barlow">+880177774416</p>
             </p>
-            <p className="font-hind flex items-center gap-3 mb-2">
+            <p className="font-hind flex items-center gap-3 mb-2 overflow-clip">
               <FaEnvelope className="text-lg" /> <strong>ইমেইল:</strong>{" "}
-              support@quransunnah.com
+              <a
+                href="mailto:quransunnah1991@gmail.com"
+                className="link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                quransunnah1991@gmail.com
+              </a>
             </p>
-            <p className="mt-2 font-hind">
+            {/* <p className="mt-2 font-hind">
               আমরা ২৪ ঘণ্টার মধ্যে আপনার বার্তার উত্তর দেওয়ার চেষ্টা করি।
-            </p>
+            </p> */}
           </div>
 
           {/* Tab 2: ফর্ম */}

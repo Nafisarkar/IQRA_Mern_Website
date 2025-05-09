@@ -5,6 +5,7 @@ const {
   searchPostByTitle,
   addPost,
   deletePostById,
+  updatePostById,
   updateViewCount,
 } = require("../controllers/postController");
 const { isLoggedIn, isAdmin } = require("../middlewares/authWare");
@@ -25,6 +26,10 @@ postRouter.get("/postsearch", searchPostByTitle);
 //add a post to db
 //endpoint -> /api/post
 postRouter.post("/post", isLoggedIn, isAdmin, addPost);
+
+//update a post to db
+//endpoint -> /api/post
+postRouter.post("/updatepost/:id", isLoggedIn, isAdmin, updatePostById);
 
 //update view count
 //endpoint -> /api/updatecount

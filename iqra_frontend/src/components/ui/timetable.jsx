@@ -88,7 +88,7 @@ const Timetable = () => {
   const entries = Object.entries(timetable);
 
   return (
-    <div className="px-5 py-3 m-4 rounded-lg flex flex-col items-center font-poppins w-[calc(100%-2rem)] lg:max-w-[800px] bg-base-300">
+    <div className="px-5 py-3 m-4 rounded-lg flex flex-col items-center font-poppins w-[calc(100%-2rem)] lg:max-w-[800px] bg-base-200">
       <h1 className="text-sm md:text-xl lg:text-xl font-hind text-center mb-2 font-bold">
         আজকের নামাজের সময়সূচি ( ঢাকা )
       </h1>
@@ -96,7 +96,7 @@ const Timetable = () => {
       <ul className="timeline timeline-vertical sm:timeline-horizontal ">
         {entries.map(([timeName, timeValue], index) => (
           <li key={index}>
-            {index == 0 ? <></> : <hr />}
+            {index > 0 && <hr className="bg-base-content" />}
             <div className="timeline-start font-hind text-sm">
               {engToBangla(timeName)}
             </div>
@@ -107,17 +107,17 @@ const Timetable = () => {
                 fill="currentColor"
                 className="h-5 w-5"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                  clipRule="evenodd"
-                />
+                <circle cx="10" cy="10" r="5" />
               </svg>
             </div>
             <div className="timeline-end timeline-box font-hind">
               {convertTo12Hour(timeValue)}
             </div>
-            {index == entries.length - 1 ? <></> : <hr />}
+            {index == entries.length - 1 ? (
+              <></>
+            ) : (
+              <hr className="bg-base-content" />
+            )}
           </li>
         ))}
       </ul>
