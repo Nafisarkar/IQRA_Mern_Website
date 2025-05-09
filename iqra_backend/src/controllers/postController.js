@@ -145,6 +145,44 @@ const addPost = async (req, res, next) => {
   }
 };
 
+//add a post to db
+//use json formate to send data
+//endpoint -> /api/post
+const updateViewCount = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    // Check for valid MongoDB ID format to avoid CastError
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      return next(createHttpError(400, "Invalid post ID format"));
+    }
+
+    const requestedPost = await Post.findById(id);
+
+    if (!requestedPost) {
+      next(createHttpError(404, "Post does not exits"));
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      id,
+      { $inc: { views: 1 } },
+      { new: true }
+    );
+
+    // Return with 201 Created status code
+    return res.status(201).json({
+      success: true,
+      message: "Updated view counter",
+      payload: updatedPost,
+    });
+  } catch (error) {
+    // Handle other errors
+    return next(
+      createHttpError(500, `Error updateing view post: ${error.message}`)
+    );
+  }
+};
+
 //delete a post from db
 //endpoint -> /api/postdeletebyid/:id
 const deletePostById = async (req, res, next) => {
@@ -180,6 +218,7 @@ module.exports = {
   getAllPosts,
   getPostById,
   searchPostByTitle,
+  updateViewCount,
   addPost,
   deletePostById,
 };
