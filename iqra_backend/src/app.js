@@ -8,15 +8,24 @@ const userRouter = require("./routers/userRouter");
 const seedUserRouter = require("./seed/routers/seedUserRouter");
 const seedPostRouter = require("./seed/routers/seedPostRouter");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 require("dotenv").config();
 
 const rateLimiter = ratelimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 150, // limit each IP to 100 requests per windowMs
+  max: 550, // limit each IP to 100 requests per windowMs
 });
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Your frontend URL
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(xss());
 app.use(rateLimiter);
 app.use(morgan("dev"));

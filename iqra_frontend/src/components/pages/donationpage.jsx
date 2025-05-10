@@ -24,7 +24,7 @@ const DonationPage = () => {
             <p className="font-hind flex items-center gap-3 mb-2">
               <FaMobileAlt className="text-lg " />
               <strong>নম্বর:</strong>{" "}
-              <p className="font-barlow">+880177774416</p>
+              <span className="font-barlow">+880177774416</span>
             </p>
             <p className="font-hind mb-2">
               <strong>প্রতিষ্ঠান/পার্সোনাল:</strong> পার্সোনাল
@@ -49,7 +49,7 @@ const DonationPage = () => {
             <p className="font-hind flex items-center gap-3 mb-2">
               <FaMobileAlt className="text-lg" />
               <strong>নম্বর:</strong>{" "}
-              <p className="font-barlow">+880177774416</p>
+              <span className="font-barlow">+880177774416</span>
             </p>
             <p className="font-hind mb-2">
               <strong>প্রতিষ্ঠান/পার্সোনাল:</strong> পার্সোনাল

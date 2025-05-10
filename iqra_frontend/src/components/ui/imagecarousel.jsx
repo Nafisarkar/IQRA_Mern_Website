@@ -34,7 +34,7 @@ const Imagecarousal = () => {
   ];
 
   return (
-    <div className="carousel m-4 rounded-[5px]">
+    <div className="carousel m-4 rounded-[5px] shadow-xl">
       {display_images.map((image) => (
         <div
           key={`slide${image.id}`}

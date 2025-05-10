@@ -1,10 +1,15 @@
 import React, { useContext, useRef } from "react";
-import { NavLink } from "react-router"; // Fix the import path
+import { NavLink } from "react-router"; // Fixed import path
 import { ThemeContext } from "../provider/themecontextprovider";
+import { useSelector } from "react-redux";
+import { selectIsAuthenticated } from "../../app/features/user/userSlice";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const drawerCheckboxRef = useRef(null);
+
+  // Move the useSelector outside useEffect for proper usage
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   // Function to close the sidebar
   const closeSidebar = () => {
@@ -23,8 +28,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center bg-base-300 w-full">
-      <div className="drawer drawer-mobile relative font-poppins w-full max-w-[1200px]">
+    <div className="flex flex-col justify-center items-center bg-base-300 w-full shadow-xl">
+      <div className="drawer drawer-mobile relative font-poppins w-full max-w-[1000px]">
         <input
           id="my-drawer-3"
           type="checkbox"
@@ -62,9 +67,15 @@ const Navbar = () => {
             <div className="hidden flex-none lg:block">
               <ul className="menu menu-horizontal">
                 <li>
-                  <NavLink to={"/login"} className={"font-hind"}>
-                    লগইন
-                  </NavLink>
+                  {isAuthenticated ? (
+                    <SidebarNavLink to="/login" className="font-hind">
+                      লগআউট
+                    </SidebarNavLink>
+                  ) : (
+                    <SidebarNavLink to="/login" className="font-hind">
+                      লগইন
+                    </SidebarNavLink>
+                  )}
                 </li>
                 <li className="font-hind">
                   <NavLink to="/quran">কুরআন</NavLink>
@@ -79,7 +90,7 @@ const Navbar = () => {
                   <NavLink to="/donation">অনুদান</NavLink>
                 </li>
                 <li className="font-hind">
-                  <NavLink to="/contact">যোগাযোগ</NavLink>
+                  <NavLink to="/contactus">যোগাযোগ</NavLink>
                 </li>
                 <li>
                   <label className="swap swap-rotate">
@@ -128,9 +139,15 @@ const Navbar = () => {
               </SidebarNavLink>
             </li>
             <li>
-              <SidebarNavLink to="/login" className="font-hind">
-                লগইন
-              </SidebarNavLink>
+              {isAuthenticated ? (
+                <SidebarNavLink to="/login" className="font-hind">
+                  লগআউট
+                </SidebarNavLink>
+              ) : (
+                <SidebarNavLink to="/login" className="font-hind">
+                  লগইন
+                </SidebarNavLink>
+              )}
             </li>
             <li className="font-hind">
               <SidebarNavLink to="/quran">কুরআন</SidebarNavLink>

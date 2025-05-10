@@ -7,6 +7,7 @@ const {
   deletePostById,
   updatePostById,
   updateViewCount,
+  getPostByCatagory,
 } = require("../controllers/postController");
 const { isLoggedIn, isAdmin } = require("../middlewares/authWare");
 const postRouter = express.Router();
@@ -34,6 +35,10 @@ postRouter.post("/updatepost/:id", isLoggedIn, isAdmin, updatePostById);
 //update view count
 //endpoint -> /api/updatecount
 postRouter.post("/updatecount/:id", updateViewCount);
+
+//get post by category
+//endpoint -> /api/posts/:category
+postRouter.get("/posts/:category", getPostByCatagory);
 
 //delete a post from db
 //endpoint -> /api/postdeletebyid

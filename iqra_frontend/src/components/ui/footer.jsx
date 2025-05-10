@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { Link } from "react-router";
+import { Link, Links } from "react-router";
 import { ThemeContext } from "../provider/themecontextprovider";
 
 const Footer = () => {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <div className="flex justify-center items-center bg-base-300 ">
+    <div className="flex justify-center items-center bg-base-300 shadow-xl">
       <footer className="footer sm:footer-horizontal bg-base-300 text-base-content p-10 font-poppins w-[1000px]">
         <aside>
           <svg
@@ -38,9 +38,15 @@ const Footer = () => {
         </aside>
         <nav className="font-hind">
           <h6 className="footer-title">সেবা সমূহ</h6>
-          <a className="link link-hover">কুরআন পড়ুন</a>
-          <a className="link link-hover">হাদিস পড়ুন</a>
-          <a className="link link-hover">ইসলামী ফতোয়া</a>
+          <Link to={"/quran"} className="link link-hover">
+            কুরআন পড়ুন
+          </Link>
+          <Link to={"/hadith"} className="link link-hover">
+            হাদিস পড়ুন
+          </Link>
+          <Link to={"/fatwa"} className="link link-hover">
+            ইসলামী ফতোয়া
+          </Link>
         </nav>
         <nav className="font-hind">
           <h6 className="footer-title">প্রতিষ্ঠান</h6>

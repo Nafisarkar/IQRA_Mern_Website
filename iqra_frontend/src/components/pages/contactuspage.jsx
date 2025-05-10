@@ -36,7 +36,7 @@ const Contactuspage = () => {
             </p>
             <p className="font-hind flex items-center gap-3 mb-2">
               <FaPhone className="text-lg" /> <strong>ফোন:</strong>
-              <p className="font-barlow">+880177774416</p>
+              <span className="font-barlow">+880177774416</span>
             </p>
             <p className="font-hind flex items-center gap-3 mb-2 overflow-clip">
               <FaEnvelope className="text-lg" /> <strong>ইমেইল:</strong>{" "}

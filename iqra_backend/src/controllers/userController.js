@@ -36,10 +36,26 @@ const logInUser = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "Login successful",
-      // token,
+      // token: token, // Include token for frontend storage
     });
   } catch (error) {
     return next(createHttpError(500, `Login error: ${error.message}`));
+  }
+};
+
+const mydetails = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) {
+      return next(createHttpError(404, "User not found"));
+    }
+    res.status(200).json({
+      success: true,
+      message: "User details retrieved successfully",
+      payload: user,
+    });
+  } catch (error) {
+    return next(createHttpError(500, `User details error: ${error.message}`));
   }
 };
 
@@ -104,5 +120,6 @@ const registerUser = async (req, res, next) => {
 module.exports = {
   logInUser,
   logOutUser,
+  mydetails,
   registerUser,
 };

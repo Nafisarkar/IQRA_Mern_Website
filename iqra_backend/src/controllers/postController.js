@@ -238,6 +238,68 @@ const updatePostById = async (req, res, next) => {
   }
 };
 
+const getPostByCatagory = async (req, res, next) => {
+  try {
+    const category = req.params.category.toLowerCase();
+
+    // Validate category
+    const validCategories = ["quran", "hadith", "fatwa"];
+    if (!validCategories.includes(category)) {
+      return next(
+        createHttpError(
+          400,
+          "Invalid category. Must be one of: quran, hadith, fatwa"
+        )
+      );
+    }
+
+    // Add pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    // Get total count for this category
+    const total = await Post.countDocuments({ category });
+
+    // Calculate total pages
+    const totalPages = Math.ceil(total / limit);
+
+    // Check if page is out of range
+    if ((page > totalPages && total > 0) || page < 0) {
+      return next(createHttpError(404, "Page not found"));
+    }
+
+    const posts = await Post.find({ category })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    if (posts.length === 0) {
+      return next(
+        createHttpError(404, `No posts found for category: ${category}`)
+      );
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: `Posts for category '${category}' retrieved successfully`,
+      payload: {
+        posts,
+        pagination: {
+          total,
+          page,
+          limit,
+          pages: totalPages,
+        },
+      },
+    });
+  } catch (error) {
+    return next(
+      createHttpError(500, `Error getting posts by category: ${error.message}`)
+    );
+  }
+};
+
 //delete a post from db
 //endpoint -> /api/postdeletebyid/:id
 const deletePostById = async (req, res, next) => {
@@ -276,5 +338,6 @@ module.exports = {
   updateViewCount,
   addPost,
   updatePostById,
+  getPostByCatagory,
   deletePostById,
 };

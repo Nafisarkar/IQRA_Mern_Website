@@ -88,7 +88,7 @@ const Timetable = () => {
   const entries = Object.entries(timetable);
 
   return (
-    <div className="px-5 py-3 m-4 rounded-lg flex flex-col items-center font-poppins w-[calc(100%-2rem)] lg:max-w-[800px] bg-base-200">
+    <div className="px-5 py-3 m-4 rounded-lg flex flex-col items-center font-poppins w-[calc(100%-2rem)] lg:max-w-[800px] bg-base-200 shadow-xl">
       <h1 className="text-sm md:text-xl lg:text-xl font-hind text-center mb-2 font-bold">
         আজকের নামাজের সময়সূচি ( ঢাকা )
       </h1>
