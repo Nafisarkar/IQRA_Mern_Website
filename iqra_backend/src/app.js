@@ -14,14 +14,15 @@ require("dotenv").config();
 
 // Ensure CLIENT_URL is defined in your .env or Vercel environment variables
 // e.g., CLIENT_URL=https://your-frontend-app.vercel.app
-const allowedOrigins = [];
-if (process.env.CLIENT_URL) {
-  allowedOrigins.push(process.env.CLIENT_URL);
-}
-if (process.env.NODE_ENV !== "production" && !process.env.VERCEL_ENV) {
-  // For local development
-  allowedOrigins.push("http://localhost:5173");
-}
+const allowedOrigins = [
+  "https://iqra-mern-website-abos.vercel.app", // Your Vercel frontend
+  "http://localhost:5173", // Vite default port
+  "http://localhost:3000", // Express default port
+  "http://127.0.0.1:5173", // Also allow localhost as 127.0.0.1
+  "http://127.0.0.1:3000",
+];
+
+// Add this debug log to check allowed origins
 console.log("Allowed Origins for CORS:", allowedOrigins);
 
 const rateLimiter = ratelimiter({
@@ -34,21 +35,15 @@ const app = express();
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests) only in non-Vercel/non-production envs
-      if (
-        !origin &&
-        process.env.NODE_ENV !== "production" &&
-        !process.env.VERCEL_ENV
-      ) {
+      console.log("Request origin:", origin); // Log the origin of each request
+
+      // Allow requests with no origin (like Postman or curl requests)
+      if (!origin) {
         return callback(null, true);
       }
-      // If origin is in allowedOrigins, reflect it
+
+      // Check if origin is in the allowed list
       if (allowedOrigins.includes(origin)) {
-        callback(null, true); // Reflect the request origin
-      } else if (allowedOrigins.length === 0 && !origin) {
-        // Fallback for no origin if allowedOrigins is empty (e.g. local dev before CLIENT_URL is set)
-        // This might be too permissive for production if CLIENT_URL is accidentally not set.
-        // Consider removing this or making it stricter based on environment.
         callback(null, true);
       } else {
         console.error(
