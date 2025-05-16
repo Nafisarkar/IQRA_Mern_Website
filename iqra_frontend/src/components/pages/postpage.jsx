@@ -18,10 +18,13 @@ const Postpage = () => {
       dispatch(fetchPostById(postId));
     }
     // Increment view count
-    fetch(`http://localhost:3000/api/updatecount/${postId}`, {
-      method: "POST",
-      credentials: "include",
-    }).catch((err) => console.log("View count error:", err));
+    fetch(
+      `${import.meta.env.VITE_BACKEND_BASE_URL}/api/updatecount/${postId}`,
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    ).catch((err) => console.log("View count error:", err));
   }, [postId, dispatch]);
 
   if (status === "loading") {

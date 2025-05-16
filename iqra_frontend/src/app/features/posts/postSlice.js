@@ -6,7 +6,9 @@ import {
 
 // Fetch all posts
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const response = await fetch("http://localhost:3000/api/posts");
+  const response = await fetch(
+    `${import.meta.env.VITE_BACKEND_BASE_URL}/api/posts`
+  );
   if (!response.ok) throw new Error("Failed to fetch posts");
   return await response.json();
 });
@@ -16,9 +18,12 @@ export const fetchPostById = createAsyncThunk(
   "posts/fetchPostById",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/postbyid/${id}`, {
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/postbyid/${id}`,
+        {
+          credentials: "include",
+        }
+      );
 
       if (!response.ok) return rejectWithValue("Post not found");
 
@@ -35,7 +40,7 @@ export const updatePost = createAsyncThunk(
   async ({ id, post }, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/updatepost/${id}`,
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/updatepost/${id}`,
         {
           method: "POST",
           headers: {

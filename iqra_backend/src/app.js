@@ -13,14 +13,14 @@ require("dotenv").config();
 
 const rateLimiter = ratelimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 550, // limit each IP to 100 requests per windowMs
+  max: 150, // limit each IP to 100 requests per windowMs
 });
 
 const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend URL
+    origin: process.env.CLIENT_URL, // Your frontend URL from env
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -35,7 +35,7 @@ app.use(cookieParser());
 
 //base url
 app.get("/", (req, res, next) => {
-  res.json({ message: "Hello world" });
+  res.json({ message: "Quran Sunnah API" });
 });
 
 //routes

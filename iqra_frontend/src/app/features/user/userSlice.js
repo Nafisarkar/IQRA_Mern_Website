@@ -9,15 +9,18 @@ export const loginUser = createAsyncThunk(
 
       const { username, password } = credentials;
 
-      const loginResponse = await fetch("http://localhost:3000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-        credentials: "include", // Include cookies
-        mode: "cors",
-      });
+      const loginResponse = await fetch(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+          credentials: "include", // Include cookies
+          mode: "cors",
+        }
+      );
 
       const loginData = await loginResponse.json();
 
@@ -28,9 +31,12 @@ export const loginUser = createAsyncThunk(
 
       console.log("Login successful, fetching user details");
 
-      const userResponse = await fetch("http://localhost:3000/api/me", {
-        credentials: "include", // Include cookies
-      });
+      const userResponse = await fetch(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/me`,
+        {
+          credentials: "include", // Include cookies
+        }
+      );
 
       if (!userResponse.ok) {
         if (userResponse.status === 403) {
@@ -57,10 +63,13 @@ export const logoutUser = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:3000/api/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/logout`,
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
 
       if (!response.ok) {
         const data = await response.json();
@@ -88,9 +97,12 @@ export const checkAuthStatus = createAsyncThunk(
 
       console.log("Checking authentication status...");
 
-      const userResponse = await fetch("http://localhost:3000/api/me", {
-        credentials: "include", // Include cookies
-      });
+      const userResponse = await fetch(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/me`,
+        {
+          credentials: "include", // Include cookies
+        }
+      );
 
       if (!userResponse.ok) {
         if (userResponse.status === 403) {

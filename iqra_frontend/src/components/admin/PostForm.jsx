@@ -51,14 +51,17 @@ const PostForm = () => {
     setMessage({ text: "", type: "" });
 
     try {
-      const response = await fetch("http://localhost:3000/api/post", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(post),
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/post`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(post),
+          credentials: "include",
+        }
+      );
 
       const data = await response.json();
 
