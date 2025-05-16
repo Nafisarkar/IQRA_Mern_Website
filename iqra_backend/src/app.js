@@ -57,21 +57,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Middleware to ensure DB connection before API routes
-app.use("/api", async (req, res, next) => {
-  try {
-    await connectDB(); // Ensure DB is connected
-    next();
-  } catch (error) {
-    // If connectDB throws an error (e.g., initial connection failure)
-    // this will be caught by the global error handler.
-    // We can also send a specific response here if preferred.
-    console.error("API DB Connection Middleware Error:", error.message);
-    // Pass the error to the global error handler
-    next(
-      createError(503, "Database service unavailable. Please try again later.")
-    );
-  }
-});
+// app.use("/api", async (req, res, next) => {
+//   try {
+//     await connectDB(); // Ensure DB is connected
+//     next();
+//   } catch (error) {
+//     // If connectDB throws an error (e.g., initial connection failure)
+//     // this will be caught by the global error handler.
+//     // We can also send a specific response here if preferred.
+//     console.error("API DB Connection Middleware Error:", error.message);
+//     // Pass the error to the global error handler
+//     next(
+//       createError(503, "Database service unavailable. Please try again later.")
+//     );
+//   }
+// });
 
 //base url
 app.get("/", (req, res, next) => {

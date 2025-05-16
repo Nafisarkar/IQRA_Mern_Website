@@ -39,7 +39,4 @@ if (!process.env.VERCEL_ENV) {
     });
 }
 
-// Export the app for Vercel.
-// Vercel imports this module and uses the exported Express app.
-// The connectDB() call above ensures the connection process is initiated when the function instance starts.
 module.exports = app;
