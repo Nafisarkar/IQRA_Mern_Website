@@ -26,8 +26,9 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+app.set("trust proxy", 1);
 app.use(xss());
-// app.use(rateLimiter);
+app.use(rateLimiter);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
