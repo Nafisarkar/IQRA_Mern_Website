@@ -47,9 +47,9 @@ const App = () => {
   if (!authChecked) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <div>
+        <div className="text-center">
           <div className="loading loading-spinner loading-lg"></div>
-          <p>Loading...</p>
+          <p className="mt-4">লোডিং...</p>
         </div>
       </div>
     );
