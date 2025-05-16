@@ -11,6 +11,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
 
+const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"];
 const rateLimiter = ratelimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 150, // limit each IP to 100 requests per windowMs
