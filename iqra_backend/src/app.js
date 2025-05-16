@@ -33,30 +33,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests) during development or if specifically needed.
-      // For production, it's better to restrict this.
-      if (
-        !origin &&
-        process.env.NODE_ENV !== "production" &&
-        !process.env.VERCEL_ENV
-      ) {
-        return callback(null, true);
-      }
-      if (allowedOrigins.length === 0 && !origin) {
-        // Handles cases where CLIENT_URL might not be set but no origin is present
-        return callback(null, true);
-      }
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        console.error(`CORS Error: Origin ${origin} not allowed.`);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // This is crucial for cookies
-    // methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Handled by default by cors middleware for simple requests
-    // allowedHeaders: ["Content-Type", "Authorization"], // Handled by default by cors middleware for simple requests
+    origin: "*",
+    credentials: true,
   })
 );
 
