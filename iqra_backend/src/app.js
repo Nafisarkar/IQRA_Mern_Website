@@ -33,25 +33,35 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*",
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests) only in non-Vercel/non-production envs
+      if (
+        !origin &&
+        process.env.NODE_ENV !== "production" &&
+        !process.env.VERCEL_ENV
+      ) {
+        return callback(null, true);
+      }
+      // If origin is in allowedOrigins, reflect it
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true); // Reflect the request origin
+      } else if (allowedOrigins.length === 0 && !origin) {
+        // Fallback for no origin if allowedOrigins is empty (e.g. local dev before CLIENT_URL is set)
+        // This might be too permissive for production if CLIENT_URL is accidentally not set.
+        // Consider removing this or making it stricter based on environment.
+        callback(null, true);
+      } else {
+        console.error(
+          `CORS Error: Origin ${origin} not in allowed list: ${allowedOrigins.join(
+            ", "
+          )}`
+        );
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
-
-// The cors middleware above should handle all necessary CORS headers,
-// including Access-Control-Allow-Origin, Access-Control-Allow-Credentials, etc.
-// The manual header setting block below is removed as it's redundant and can conflict.
-
-// app.use((req, res, next) => {
-//   const origin = req.headers.origin;
-//   if (allowedOrigins.includes(origin)) {
-//     res.header("Access-Control-Allow-Origin", origin);
-//   }
-//   res.header("Access-Control-Allow-Credentials", "true");
-//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-//   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//   next();
-// });
 
 app.use(xss());
 // app.use(rateLimiter); // Consider re-enabling after fixing auth
