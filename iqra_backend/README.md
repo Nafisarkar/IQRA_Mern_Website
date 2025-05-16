@@ -105,6 +105,21 @@ A robust RESTful API backend for the IQRA Islamic knowledge sharing platform. Th
 - ⬜ Social sharing functionality
 - ⬜ Analytics for user engagement
 
+## 🚨 Troubleshooting Vercel Deployment
+
+If you encounter timeout errors or database connection issues when deploying to Vercel, consider the following:
+
+1.  **MongoDB IP Whitelisting:**
+    - If you are using MongoDB Atlas, ensure that you have whitelisted IP addresses that can access your database. For Vercel serverless functions, which have dynamic IPs, you often need to allow access from anywhere by adding `0.0.0.0/0` to your IP access list in Atlas. **Note:** This makes your database accessible from any IP, so ensure you have strong credentials.
+2.  **Environment Variables on Vercel:**
+    - Double-check that all necessary environment variables (e.g., `MONGO_DB_URL`, `JWT_SECRET_KEY`, `CLIENT_URL`) are correctly set in your Vercel project settings.
+3.  **Connection String:**
+    - Verify that your `MONGO_DB_URL` is correct and includes the necessary credentials if they are not part of separate environment variables.
+4.  **Serverless Function Timeouts:**
+    - Vercel's Hobby plan has a default timeout for serverless functions (e.g., 10 seconds). If your database queries are consistently taking longer, this could be an issue. The `buffering timed out` error is more often a connection establishment problem than a query execution timeout, but it's worth keeping in mind.
+5.  **Check Vercel Logs:**
+    - Thoroughly examine the runtime logs for your deployment on the Vercel dashboard for more specific error messages.
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
