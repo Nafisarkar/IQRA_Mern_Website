@@ -10,7 +10,7 @@ const PostDeleteButton = ({ postId, onDeleteResult }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/postdeletebyid/${postId}`,
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/postdeletebyid/${postId}`,
         {
           method: "DELETE",
           credentials: "include",
