@@ -27,7 +27,7 @@ app.use(
   })
 );
 app.use(xss());
-app.use(rateLimiter);
+// app.use(rateLimiter);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -35,7 +35,7 @@ app.use(cookieParser());
 
 //base url
 app.get("/", (req, res, next) => {
-  res.send( "Quran Sunnah API" );
+  res.send("Quran Sunnah API");
 });
 
 //routes
