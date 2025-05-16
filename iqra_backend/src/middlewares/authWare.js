@@ -1,66 +1,97 @@
 const createHttpError = require("http-errors");
-const { verifyToken } = require("../helpers/tokenHandler");
+const { decodeToken } = require("../helpers/tokenHandler"); // Assuming tokenHandler.js exists
+const { User } = require("../models/userModel"); // Assuming userModel.js exists
 
-const isLoggedIn = (req, res, next) => {
+const isLoggedIn = async (req, res, next) => {
   try {
-    // Check for token in cookies or Authorization header
+    console.log("[isLoggedIn] Middleware triggered.");
+    console.log("[isLoggedIn] All cookies:", req.cookies); // Log all cookies
+
     const token = req.cookies.token;
+    console.log("[isLoggedIn] Token from cookie:", token);
 
     if (!token) {
-      return next(createHttpError(401, "Not logged in. Please log in."));
+      console.log("[isLoggedIn] No token found in cookies.");
+      return next(createHttpError(401, "Access denied. No token provided."));
     }
 
-    // Verify and decode the token
-    const decoded = verifyToken(token);
-
-    if (!decoded) {
-      return next(createHttpError(401, "Invalid or expired token"));
+    let decoded;
+    try {
+      decoded = decodeToken(token); // Assuming decodeToken verifies and decodes
+      console.log("[isLoggedIn] Token decoded successfully:", decoded);
+    } catch (error) {
+      console.error(
+        "[isLoggedIn] Token verification/decoding error:",
+        error.message
+      );
+      // Handle specific JWT errors if needed (e.g., TokenExpiredError, JsonWebTokenError)
+      if (error.name === "TokenExpiredError") {
+        return next(createHttpError(401, "Access denied. Token expired."));
+      }
+      if (error.name === "JsonWebTokenError") {
+        return next(createHttpError(401, "Access denied. Invalid token."));
+      }
+      return next(
+        createHttpError(401, "Access denied. Token processing error.")
+      );
     }
 
-    // Attach user info to request for use in downstream middleware/routes
-    req.user = decoded;
+    if (!decoded || !decoded.id) {
+      console.log("[isLoggedIn] Decoded token is invalid or missing ID.");
+      return next(
+        createHttpError(401, "Access denied. Invalid token payload.")
+      );
+    }
 
+    // Optional: Check if user exists in DB, though for /me this might be redundant if mydetails does it
+    // const user = await User.findById(decoded.id);
+    // if (!user) {
+    //   console.log(`[isLoggedIn] User with ID ${decoded.id} not found in DB.`);
+    //   return next(createHttpError(401, "Access denied. User not found."));
+    // }
+    // console.log(`[isLoggedIn] User ${user.username} authenticated.`);
+
+    req.user = decoded; // Attach decoded payload (which should include id, username, isAdmin)
+    console.log("[isLoggedIn] req.user set:", req.user);
     next();
   } catch (error) {
-    if (error.name === "JsonWebTokenError") {
-      return next(createHttpError(401, "Invalid token"));
-    }
-    if (error.name === "TokenExpiredError") {
-      return next(createHttpError(401, "Token has expired"));
-    }
-    return next(createHttpError(500, `Authentication error: ${error.message}`));
+    console.error("[isLoggedIn] Unexpected error in middleware:", error);
+    return next(
+      createHttpError(500, "Internal server error during authentication.")
+    );
   }
 };
 
 const isLoggedOut = (req, res, next) => {
   try {
-    // Check for token in cookies or Authorization header
     const token = req.cookies.token;
-
     if (token) {
-      return next(createHttpError(403, "You are already logged in"));
+      // Optionally, you could try to verify it to see if it's a valid (though unwanted) token
+      return next(
+        createHttpError(400, "You are already logged in. Please log out first.")
+      );
     }
     next();
   } catch (error) {
-    return next(createHttpError(500, `Authentication error: ${error.message}`));
+    return next(error);
   }
 };
 
 const isAdmin = (req, res, next) => {
-  // First authenticate the user using isLoggedIn
-  isLoggedIn(req, res, (error) => {
-    if (error) {
-      return next(error); // Forward any authentication errors
+  try {
+    // This middleware should run AFTER isLoggedIn, so req.user should be populated
+    if (req.user && req.user.isAdmin) {
+      next();
+    } else {
+      return next(createHttpError(403, "Forbidden. Admin access required."));
     }
-
-    // At this point, user is authenticated and req.user is set
-    if (!req.user.isAdmin) {
-      return next(createHttpError(403, "Forbidden: Admin access required"));
-    }
-
-    // User is authenticated and is an admin
-    next();
-  });
+  } catch (error) {
+    return next(error);
+  }
 };
 
-module.exports = { isLoggedIn, isLoggedOut, isAdmin };
+module.exports = {
+  isLoggedIn,
+  isLoggedOut,
+  isAdmin,
+};

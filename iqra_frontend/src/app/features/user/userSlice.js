@@ -34,7 +34,9 @@ export const loginUser = createAsyncThunk(
       const userResponse = await fetch(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/me`,
         {
+          method: "GET",
           credentials: "include", // Include cookies
+          mode: "cors", // Ensure CORS mode for this request
         }
       );
 
@@ -68,6 +70,7 @@ export const logoutUser = createAsyncThunk(
         {
           method: "POST",
           credentials: "include",
+          mode: "cors", // Ensure CORS mode for this request
         }
       );
 
@@ -101,6 +104,7 @@ export const checkAuthStatus = createAsyncThunk(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/me`,
         {
           credentials: "include", // Include cookies
+          mode: "cors", // Ensure CORS mode for this request
         }
       );
 

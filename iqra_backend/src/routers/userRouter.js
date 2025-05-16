@@ -18,7 +18,7 @@ userRouter.post("/logout", isLoggedIn, logOutUser);
 
 //about me
 //endpoint -> /api/me
-userRouter.get("/me", isLoggedIn, isAdmin, mydetails);
+userRouter.get("/me", isLoggedIn, mydetails);
 
 //register new user
 //endpoint -> /api/register

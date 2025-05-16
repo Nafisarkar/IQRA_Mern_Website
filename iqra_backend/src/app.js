@@ -9,13 +9,24 @@ const seedUserRouter = require("./seed/routers/seedUserRouter");
 const seedPostRouter = require("./seed/routers/seedPostRouter");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const connectDB = require("./configs/db"); // Import connectDB
+const connectDB = require("./configs/db");
 require("dotenv").config();
 
-const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"];
+// Ensure CLIENT_URL is defined in your .env or Vercel environment variables
+// e.g., CLIENT_URL=https://your-frontend-app.vercel.app
+const allowedOrigins = [];
+if (process.env.CLIENT_URL) {
+  allowedOrigins.push(process.env.CLIENT_URL);
+}
+if (process.env.NODE_ENV !== "production" && !process.env.VERCEL_ENV) {
+  // For local development
+  allowedOrigins.push("http://localhost:5173");
+}
+console.log("Allowed Origins for CORS:", allowedOrigins);
+
 const rateLimiter = ratelimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 150, // limit each IP to 100 requests per windowMs
+  max: 150,
 });
 
 const app = express();
@@ -23,21 +34,36 @@ const app = express();
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.indexOf(origin) !== -1) {
+      // Allow requests with no origin (like mobile apps or curl requests) during development or if specifically needed.
+      // For production, it's better to restrict this.
+      if (
+        !origin &&
+        process.env.NODE_ENV !== "production" &&
+        !process.env.VERCEL_ENV
+      ) {
+        return callback(null, true);
+      }
+      if (allowedOrigins.length === 0 && !origin) {
+        // Handles cases where CLIENT_URL might not be set but no origin is present
+        return callback(null, true);
+      }
+      if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.error(`CORS Error: Origin ${origin} not allowed.`);
         callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // This is crucial for cookies
+    // methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Handled by default by cors middleware for simple requests
+    // allowedHeaders: ["Content-Type", "Authorization"], // Handled by default by cors middleware for simple requests
   })
 );
-// Also add these headers to all responses
+
+// The cors middleware above should handle all necessary CORS headers,
+// including Access-Control-Allow-Origin, Access-Control-Allow-Credentials, etc.
+// The manual header setting block below is removed as it's redundant and can conflict.
+
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
@@ -50,23 +76,18 @@ app.use((req, res, next) => {
 });
 
 app.use(xss());
-// app.use(rateLimiter);
+// app.use(rateLimiter); // Consider re-enabling after fixing auth
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Middleware to ensure DB connection before API routes
 app.use("/api", async (req, res, next) => {
   try {
-    await connectDB(); // Ensure DB is connected
+    await connectDB();
     next();
   } catch (error) {
-    // If connectDB throws an error (e.g., initial connection failure)
-    // this will be caught by the global error handler.
-    // We can also send a specific response here if preferred.
     console.error("API DB Connection Middleware Error:", error.message);
-    // Pass the error to the global error handler
     next(
       createError(503, "Database service unavailable. Please try again later.")
     );

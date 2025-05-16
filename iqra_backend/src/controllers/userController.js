@@ -18,25 +18,27 @@ const logInUser = async (req, res, next) => {
       return next(createHttpError(401, "Password is invalid"));
     }
 
-    // Generate JWT token
-    // can set time if needed
     const token = createToken({
       id: user._id,
       username: user.username,
       isAdmin: user.isAdmin,
     });
-    // console.log(decodeToken(token));
+
+    const isVercelEnv = !!process.env.VERCEL_ENV; // Check if running on Vercel
+    console.log(
+      `Setting cookie. VERCEL_ENV: ${process.env.VERCEL_ENV}, isVercelEnv: ${isVercelEnv}`
+    );
+
     res.cookie("token", token, {
       httpOnly: true,
-      // secure: process.env.NODE_ENV === "production", // Only use secure in production
-      // sameSite: "strict",
+      secure: isVercelEnv, // True if on Vercel (HTTPS)
+      sameSite: isVercelEnv ? "None" : "Lax", // 'None' for cross-site on Vercel, 'Lax' for local
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
     res.status(200).json({
       success: true,
       message: "Login successful",
-      // token: token, // Include token for frontend storage
     });
   } catch (error) {
     return next(createHttpError(500, `Login error: ${error.message}`));
