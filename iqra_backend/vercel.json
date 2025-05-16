@@ -1,27 +1,15 @@
 {
   "version": 2,
-  "name": "iqra-backend",
   "builds": [
     {
       "src": "src/index.js",
-      "use": "@vercel/node",
-      "config": { "maxDuration": 10 }
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/(api|seed)/(.*)",
-      "dest": "/index.js",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-      "headers": {
-        "Access-Control-Allow-Origin": "https://your-client-domain.vercel.app",
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Methods": "GET,OPTIONS,POST,PUT,PATCH,DELETE",
-        "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Content-Length, Content-MD5, Content-Type, Date, Authorization"
-      }
+      "src": "/(.*)",
+      "dest": "src/index.js"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
