@@ -35,7 +35,7 @@ app.use(cookieParser());
 
 //base url
 app.get("/", (req, res, next) => {
-  res.json({ message: "Quran Sunnah API" });
+  res.send( "Quran Sunnah API" );
 });
 
 //routes
