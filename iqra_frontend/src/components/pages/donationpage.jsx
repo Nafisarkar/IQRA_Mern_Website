@@ -73,10 +73,10 @@ const DonationPage = () => {
             </h2>
             <p className="font-hind flex items-center gap-3 mb-2">
               <FaUniversity className="text-lg" />
-              <strong>ব্যাংক নাম:</strong> Dutch Bangla Bank Limited
+              <strong>ব্যাংক নাম:</strong> ইসলামী ব্যাংক || ডাচ বাংলা ব্যাংক
             </p>
             <p className="font-hind mb-2">
-              <strong>একাউন্ট নাম:</strong> হাসান আব্দুল মোইদ
+              <strong>একাউন্ট নাম:</strong> হাসান আব্দুল মুঈদ
             </p>
             <p className="font-hind mb-2">
               <strong>একাউন্ট নম্বর:</strong> 1234567890

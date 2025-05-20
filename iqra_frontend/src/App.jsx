@@ -44,16 +44,16 @@ const App = () => {
   }, [dispatch]);
 
   // Optional: Show a loading indicator while checking auth
-  if (!authChecked) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-center">
-          <div className="loading loading-spinner loading-lg"></div>
-          <p className="mt-4">লোডিং...</p>
-        </div>
-      </div>
-    );
-  }
+  // if (!authChecked) {
+  //   return (
+  //     <div className="flex items-center justify-center h-screen">
+  //       <div className="text-center">
+  //         <div className="loading loading-spinner loading-lg"></div>
+  //         <p className="mt-4 font-hind">লোডিং...</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <BrowserRouter>
