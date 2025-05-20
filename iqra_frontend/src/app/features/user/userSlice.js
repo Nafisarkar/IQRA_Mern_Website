@@ -5,8 +5,6 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async (credentials, { rejectWithValue }) => {
     try {
-      // console.log("Attempting login...");
-
       const { username, password } = credentials;
 
       const loginResponse = await fetch(
@@ -25,11 +23,8 @@ export const loginUser = createAsyncThunk(
       const loginData = await loginResponse.json();
 
       if (!loginResponse.ok) {
-        console.error("Login failed:", loginData.message);
         return rejectWithValue(loginData.message || "Login failed");
       }
-
-      // console.log("Login successful, fetching user details");
 
       const userResponse = await fetch(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/me`,
@@ -42,19 +37,15 @@ export const loginUser = createAsyncThunk(
 
       if (!userResponse.ok) {
         if (userResponse.status === 403) {
-          console.error("Access denied: Unauthorized");
           return rejectWithValue("Access denied: Unauthorized");
         }
-        console.error("Failed to fetch user details after login");
         return rejectWithValue("Failed to fetch user details");
       }
 
       const userData = await userResponse.json();
-      // console.log("User details retrieved:", userData.payload);
 
       return userData.payload;
     } catch (error) {
-      console.error("Login process error:", error);
       return rejectWithValue("Network error during login");
     }
   }
@@ -81,7 +72,6 @@ export const logoutUser = createAsyncThunk(
 
       return null;
     } catch (error) {
-      console.error("Logout process error:", error);
       return rejectWithValue("Network error during logout");
     }
   }
@@ -98,8 +88,6 @@ export const checkAuthStatus = createAsyncThunk(
         return user;
       }
 
-      // console.log("Checking authentication status...");
-
       const userResponse = await fetch(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/me`,
         {
@@ -110,19 +98,15 @@ export const checkAuthStatus = createAsyncThunk(
 
       if (!userResponse.ok) {
         if (userResponse.status === 403) {
-          console.error("Access denied: Unauthorized");
           return rejectWithValue("Access denied: Unauthorized");
         }
-        console.error("User is not authenticated");
         return rejectWithValue("Not authenticated");
       }
 
       const userData = await userResponse.json();
-      // console.log("Found existing authentication, user:", userData.payload);
 
       return userData.payload;
     } catch (error) {
-      console.error("Error checking authentication status:", error);
       return rejectWithValue("Error checking authentication status");
     }
   }
