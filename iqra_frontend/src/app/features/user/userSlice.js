@@ -5,7 +5,7 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async (credentials, { rejectWithValue }) => {
     try {
-      console.log("Attempting login...");
+      // console.log("Attempting login...");
 
       const { username, password } = credentials;
 
@@ -29,7 +29,7 @@ export const loginUser = createAsyncThunk(
         return rejectWithValue(loginData.message || "Login failed");
       }
 
-      console.log("Login successful, fetching user details");
+      // console.log("Login successful, fetching user details");
 
       const userResponse = await fetch(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/me`,
@@ -50,7 +50,7 @@ export const loginUser = createAsyncThunk(
       }
 
       const userData = await userResponse.json();
-      console.log("User details retrieved:", userData.payload);
+      // console.log("User details retrieved:", userData.payload);
 
       return userData.payload;
     } catch (error) {
@@ -98,7 +98,7 @@ export const checkAuthStatus = createAsyncThunk(
         return user;
       }
 
-      console.log("Checking authentication status...");
+      // console.log("Checking authentication status...");
 
       const userResponse = await fetch(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/me`,

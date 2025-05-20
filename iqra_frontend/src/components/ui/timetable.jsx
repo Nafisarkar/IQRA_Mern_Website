@@ -43,7 +43,7 @@ const Timetable = () => {
     const month = formatWithLeadingZero(currentDate.getMonth() + 1);
     const day = formatWithLeadingZero(currentDate.getDate());
     const date = `${day}-${month}-${year}`;
-    console.log("Fatching data for - " + date);
+    // console.log("Fatching data for - " + date);
     const fetchTimetable = () => {
       fetch(
         `https://api.aladhan.com/v1/timingsByAddress/${date}?address=Dhaka&method=10&school=1&shafaq=general&midnightMode=0&timezonestring=Asia%2FDhaka&latitudeAdjustmentMethod=3&calendarMethod=UAQ
@@ -51,7 +51,7 @@ const Timetable = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log("Data fetched from the API");
+          // console.log("Data fetched from the API");
           if (data.code === 200 && data.status === "OK") {
             let wantedTimes = [
               "Fajr",
@@ -93,18 +93,18 @@ const Timetable = () => {
       const storedTimetable = localStorage.getItem("timetable");
       const storedDate = localStorage.getItem("date");
       if (storedTimetable && storedDate === date) {
-        console.log("Date matches with the stored date");
-        console.log("Timetable found in local storage");
+        // console.log("Date matches with the stored date");
+        // console.log("Timetable found in local storage");
         setTimetable(JSON.parse(storedTimetable));
         setLoading(false);
       } else {
-        console.log("Timetable not found in local storage");
+        // console.log("Timetable not found in local storage");
         fetchTimetable();
       }
     };
 
     checkLocalStorage();
-    console.log("Timetable updated to UI");
+    // console.log("Timetable updated to UI");
   }, []);
 
   if (isLoading) {

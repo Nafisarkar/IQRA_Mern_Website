@@ -32,7 +32,7 @@ const App = () => {
           .unwrap()
           .catch(() => {
             // Silently handle auth check failures
-            console.log("App started without authentication");
+            // console.log("App started without authentication");
           });
       } finally {
         // Always set authChecked to true when done

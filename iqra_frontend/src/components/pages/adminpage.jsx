@@ -34,14 +34,20 @@ const Adminpage = () => {
     if (!authChecked) return; // Don't redirect until we've checked auth
 
     if (user === null) {
-      console.log("No user, redirecting to login");
       navigate("/login");
     } else if (isAdmin === false) {
-      console.log("Not admin, redirecting to home");
       navigate("/");
-    } else {
-      console.log("Admin access granted");
     }
+
+    // if (user === null) {
+    //   console.log("No user, redirecting to login");
+    //   navigate("/login");
+    // } else if (isAdmin === false) {
+    //   console.log("Not admin, redirecting to home");
+    //   navigate("/");
+    // } else {
+    //   console.log("Admin access granted");
+    // }
   }, [isAdmin, user, navigate, authChecked]);
 
   // Handle tab switching
