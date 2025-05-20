@@ -171,8 +171,8 @@ const userSlice = createSlice({
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.status = "idle";
-        state.user = null;
-        state.isAdmin = false;
+        state.user = null; // User is removed from state
+        state.isAdmin = false; // isAdmin is reset
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.status = "failed";

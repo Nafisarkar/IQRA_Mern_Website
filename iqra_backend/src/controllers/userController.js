@@ -63,7 +63,17 @@ const mydetails = async (req, res, next) => {
 
 const logOutUser = (req, res, next) => {
   try {
-    res.clearCookie("token");
+    const isVercelEnv = !!process.env.VERCEL_ENV;
+    console.log(
+      `Clearing cookie. VERCEL_ENV: ${process.env.VERCEL_ENV}, isVercelEnv: ${isVercelEnv}`
+    );
+
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: isVercelEnv, // Match the secure flag used when setting
+      sameSite: isVercelEnv ? "None" : "Lax", // Match the sameSite attribute
+      // path: "/", // Usually defaults to '/', ensure it matches if set differently
+    });
     res.status(200).json({
       success: true,
       message: "Logout successful",
