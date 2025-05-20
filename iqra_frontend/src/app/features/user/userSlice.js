@@ -118,7 +118,7 @@ export const checkAuthStatus = createAsyncThunk(
       }
 
       const userData = await userResponse.json();
-      console.log("Found existing authentication, user:", userData.payload);
+      // console.log("Found existing authentication, user:", userData.payload);
 
       return userData.payload;
     } catch (error) {
