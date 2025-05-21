@@ -6,6 +6,7 @@ import {
   selectCurrentPost,
   selectPostsStatus,
 } from "../../app/features/posts/postSlice";
+import "arabic-fonts/src/css/arabic-fonts.css";
 
 const Postpage = () => {
   const { postId } = useParams();
@@ -78,7 +79,7 @@ const Postpage = () => {
         {post.arabic && (
           <div className="mb-8">
             <p
-              className="text-2xl md:text-3xl text-right font-kufi leading-loose break-words"
+              className="text-2xl md:text-3xl text-right font-indopak leading-loose break-words"
               dir="rtl"
             >
               {post.arabic}

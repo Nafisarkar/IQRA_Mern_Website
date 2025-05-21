@@ -6,6 +6,7 @@ import {
   updatePost,
   selectCurrentPost,
 } from "../../app/features/posts/postSlice";
+import "arabic-fonts/src/css/arabic-fonts.css";
 
 const EditPost = () => {
   const { postId } = useParams();
@@ -127,7 +128,7 @@ const EditPost = () => {
             name="arabic"
             value={post.arabic}
             onChange={handleInputChange}
-            className="textarea textarea-bordered w-full font-kufi text-right"
+            className="textarea textarea-bordered w-full font-indopak text-right"
             rows="4"
             dir="rtl"
             placeholder="النص العربي"

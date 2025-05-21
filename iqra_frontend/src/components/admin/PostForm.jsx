@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "arabic-fonts/src/css/arabic-fonts.css";
 const PostForm = () => {
   const [post, setPost] = useState({
     title: "",
@@ -132,7 +132,7 @@ const PostForm = () => {
             name="arabic"
             value={post.arabic}
             onChange={handleInputChange}
-            className="input input-bordered w-full text-right font-kufi"
+            className="input input-bordered w-full text-right font-indopak"
             dir="rtl"
             placeholder="إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ"
           />

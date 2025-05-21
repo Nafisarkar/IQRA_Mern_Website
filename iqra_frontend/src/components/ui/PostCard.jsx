@@ -1,5 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router"; // fixed import
+import { useNavigate } from "react-router";
+import "arabic-fonts/src/css/arabic-fonts.css";
 
 const PostCard = ({ post }) => {
   if (!post) return null;
@@ -60,7 +61,7 @@ const PostCard = ({ post }) => {
           className="mb-4"
           style={{ minHeight: "3rem" }} // Fixed height for Arabic text
         >
-          <p className="text-xl text-right font-kufi line-clamp-2" dir="rtl">
+          <p className="text-xl text-right font-indopak line-clamp-2" dir="rtl">
             {getTwoSentences(post.arabic, "۔")} {/* Arabic period */}
           </p>
         </div>
