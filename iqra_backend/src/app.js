@@ -15,6 +15,7 @@ require("dotenv").config();
 // Ensure CLIENT_URL is defined in your .env or Vercel environment variables
 // e.g., CLIENT_URL=https://your-frontend-app.vercel.app
 const allowedOrigins = [
+  "https://www.quransunnahbd.com",
   "https://iqra-mern-website-abos.vercel.app", // Your Vercel frontend
   "http://localhost:5173", // Vite default port
   "http://localhost:3000", // Express default port
