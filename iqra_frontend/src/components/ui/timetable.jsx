@@ -170,7 +170,7 @@ const Timetable = () => {
           আজকের নামাজের সময়সূচি ({location})
         </h1>
         <div className="dropdown dropdown-bottom dropdown-center">
-          <div tabIndex={0} role="button" className="btn btn-sm m-1">
+          <div tabIndex={0} role="button" className="btn btn-sm m-1 font-hind">
             শহর পরিবর্তন করুন
           </div>
           <ul

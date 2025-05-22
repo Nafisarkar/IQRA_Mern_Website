@@ -92,7 +92,7 @@ const Postpage = () => {
             <h3 className="text-sm font-semibold text-gray-500 mb-2 font-hind uppercase tracking-wide">
               Bangla
             </h3>
-            <p className="font-hind text-lg leading-relaxed whitespace-pre-line break-words">
+            <p className="font-bengali text-lg leading-relaxed whitespace-pre-line break-words">
               {post.bangla}
             </p>
           </div>

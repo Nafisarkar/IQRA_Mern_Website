@@ -29,7 +29,7 @@ const QPostCard = ({ post }) => {
 
   return (
     <div
-      className="rounded-[5px] shadow-lg p-6 hover:shadow-xl transition-shadow bg-base-300 cursor-pointer h-50  flex flex-col justify-between" // Fixed height and layout
+      className="rounded-[5px] shadow-lg p-6 hover:shadow-xl transition-shadow bg-base-300 cursor-pointer h-100  flex flex-col justify-between" // Fixed height and layout
       onClick={handleCardClick}
       role="button"
       tabIndex={0}
@@ -58,7 +58,32 @@ const QPostCard = ({ post }) => {
         </div>
       )}
 
+      {post.bangla && (
+        <div
+          className="mb-4"
+          style={{ minHeight: "3rem" }} // Fixed height for Bangla text
+        >
+          <h3 className="text-sm font-semibold text-gray-500 mb-1 font-hind">
+            Bangla
+          </h3>
+          <p className="font-bengali line-clamp-2">
+            {getTwoSentences(post.bangla)}
+          </p>
+        </div>
+      )}
+
       {/* English section removed */}
+      {post.english && (
+        <div
+          className="mb-4"
+          style={{ minHeight: "3rem" }} // Fixed height for English text
+        >
+          <h3 className="text-sm font-semibold text-gray-500 mb-1">English</h3>
+          <p className="italic font-mono line-clamp-2">
+            {getTwoSentences(post.english)}
+          </p>
+        </div>
+      )}
 
       {/* Bangla section removed */}
 

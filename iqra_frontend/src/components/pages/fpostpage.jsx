@@ -78,10 +78,10 @@ const FPostpage = () => {
 
         {post.bangla && (
           <div className="mb-8">
-            <h3 className="text-sm font-semibold text-gray-500 mb-2 font-hind uppercase tracking-wide">
+            {/* <h3 className="text-sm font-semibold text-gray-500 mb-2 font-hind uppercase tracking-wide">
               Bangla
-            </h3>
-            <p className="font-hind text-lg leading-relaxed whitespace-pre-line break-words">
+            </h3> */}
+            <p className="font-bengali text-lg leading-relaxed whitespace-pre-line break-words text-justify">
               {post.bangla}
             </p>
           </div>

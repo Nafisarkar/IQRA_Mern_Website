@@ -75,7 +75,7 @@ const PostCard = ({ post }) => {
           <h3 className="text-sm font-semibold text-gray-500 mb-1 font-hind">
             Bangla
           </h3>
-          <p className="font-hind line-clamp-2">
+          <p className="font-bengali line-clamp-2">
             {getTwoSentences(post.bangla)}
           </p>
         </div>
