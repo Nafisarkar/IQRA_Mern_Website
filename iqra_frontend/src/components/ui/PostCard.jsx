@@ -67,18 +67,6 @@ const PostCard = ({ post }) => {
         </div>
       )}
 
-      {post.english && (
-        <div
-          className="mb-4"
-          style={{ minHeight: "3rem" }} // Fixed height for English text
-        >
-          <h3 className="text-sm font-semibold text-gray-500 mb-1">English</h3>
-          <p className="italic font-mono line-clamp-2">
-            {getTwoSentences(post.english)}
-          </p>
-        </div>
-      )}
-
       {post.bangla && (
         <div
           className="mb-4"
@@ -89,6 +77,18 @@ const PostCard = ({ post }) => {
           </h3>
           <p className="font-hind line-clamp-2">
             {getTwoSentences(post.bangla)}
+          </p>
+        </div>
+      )}
+
+      {post.english && (
+        <div
+          className="mb-4"
+          style={{ minHeight: "3rem" }} // Fixed height for English text
+        >
+          <h3 className="text-sm font-semibold text-gray-500 mb-1">English</h3>
+          <p className="italic font-mono line-clamp-2">
+            {getTwoSentences(post.english)}
           </p>
         </div>
       )}
