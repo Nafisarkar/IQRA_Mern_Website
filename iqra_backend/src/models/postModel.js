@@ -18,7 +18,7 @@ const postSchema = new Schema({
   category: {
     type: String,
     required: true,
-    enum: ["quran", "hadith", "fatwa"], // restrict to 3 categories
+    enum: ["quran", "hadith", "fatwa", "bukhari", "muslim"], // restrict to 5 categories
   },
   tags: [String],
   author: {

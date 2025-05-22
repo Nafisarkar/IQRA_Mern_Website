@@ -8,7 +8,7 @@ import {
 } from "../../app/features/posts/postSlice";
 import "arabic-fonts/src/css/arabic-fonts.css";
 
-const Postpage = () => {
+const FPostpage = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const post = useSelector(selectCurrentPost);
@@ -76,17 +76,6 @@ const Postpage = () => {
           </div>
         )}
 
-        {post.arabic && (
-          <div className="mb-8">
-            <p
-              className="text-2xl md:text-3xl text-right font-indopak leading-loose break-words"
-              dir="rtl"
-            >
-              {post.arabic}
-            </p>
-          </div>
-        )}
-
         {post.bangla && (
           <div className="mb-8">
             <h3 className="text-sm font-semibold text-gray-500 mb-2 font-hind uppercase tracking-wide">
@@ -94,17 +83,6 @@ const Postpage = () => {
             </h3>
             <p className="font-hind text-lg leading-relaxed whitespace-pre-line break-words">
               {post.bangla}
-            </p>
-          </div>
-        )}
-
-        {post.english && (
-          <div className="mb-8">
-            <h3 className="text-sm font-semibold text-gray-500 mb-2 uppercase tracking-wide">
-              English
-            </h3>
-            <p className="italic font-mono text-lg leading-relaxed whitespace-pre-line break-words">
-              {post.english}
             </p>
           </div>
         )}
@@ -156,4 +134,4 @@ const Postpage = () => {
   );
 };
 
-export default Postpage;
+export default FPostpage;

@@ -8,12 +8,11 @@ import {
   selectLastFetched,
 } from "../../app/features/posts/postSlice";
 import PostSkeleton from "../ui/PostSkeleton";
-import FPostCard from "../ui/FPostCard";
+import PostCard from "../ui/PostCard";
 
-const CATEGORY = "fatwa";
-const CACHE_EXPIRY = 5 * 60 * 1000; // 5 minutes
-
-const Fatwapage = () => {
+const CATEGORY = "muslim";
+const CACHE_EXPIRY = 5 * 60 * 1000;
+const Muslimpage = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => selectPostsByCategory(state, CATEGORY));
   const status = useSelector(selectPostsStatus);
@@ -36,7 +35,6 @@ const Fatwapage = () => {
 
     loadData();
   }, [dispatch, status, lastFetched]);
-
   return (
     <div className="container mx-auto px-4 py-8 max-w-[1000px]">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -46,7 +44,7 @@ const Fatwapage = () => {
           posts &&
           posts.length > 0 &&
           posts.map((post) => (
-            <FPostCard key={post._id || post.id} post={post} />
+            <PostCard key={post._id || post.id} post={post} />
           ))}
 
         {!loading && (!posts || posts.length === 0) && (
@@ -59,4 +57,4 @@ const Fatwapage = () => {
   );
 };
 
-export default Fatwapage;
+export default Muslimpage;

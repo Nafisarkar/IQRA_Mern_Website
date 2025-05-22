@@ -10,7 +10,7 @@ const getAllPosts = async (req, res, next) => {
   try {
     // Add pagination and filtering
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 1000;
     const skip = (page - 1) * limit;
 
     // Get total count for pagination info first
@@ -119,7 +119,7 @@ const addPost = async (req, res, next) => {
     }
 
     // Validate category
-    const validCategories = ["quran", "hadith", "fatwa"];
+    const validCategories = ["quran", "hadith", "fatwa", "bukhari", "muslim"];
     if (!validCategories.includes(category)) {
       return next(
         createHttpError(400, "Category must be one of: quran, hadith, fatwa")
@@ -243,19 +243,19 @@ const getPostByCatagory = async (req, res, next) => {
     const category = req.params.category.toLowerCase();
 
     // Validate category
-    const validCategories = ["quran", "hadith", "fatwa"];
+    const validCategories = ["quran", "hadith", "fatwa", "bukhari", "muslim"];
     if (!validCategories.includes(category)) {
       return next(
         createHttpError(
           400,
-          "Invalid category. Must be one of: quran, hadith, fatwa"
+          "Invalid category. Must be one of: quran, hadith, fatwa, bukhari, muslim"
         )
       );
     }
 
     // Add pagination
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 1000;
     const skip = (page - 1) * limit;
 
     // Get total count for this category

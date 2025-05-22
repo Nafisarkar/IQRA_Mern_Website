@@ -175,6 +175,8 @@ const PostForm = () => {
             <option value="hadith">হাদিস</option>
             <option value="quran">কুরআন</option>
             <option value="fatwa">ফতোয়া</option>
+            <option value="bukhari">সহীহ বুখারী</option>
+            <option value="muslim">সহীহ মুসলিম</option>
           </select>
         </div>
 

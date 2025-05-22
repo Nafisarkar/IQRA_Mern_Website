@@ -87,11 +87,17 @@ const Navbar = () => {
                   <NavLink to="/fatwa">ইসলামী ফতোয়া</NavLink>
                 </li>
                 <li className="font-hind">
+                  <NavLink to="/bukhari">সহীহ বুখারী</NavLink>
+                </li>
+                <li className="font-hind">
+                  <NavLink to="/muslim">সহীহ মুসলিম</NavLink>
+                </li>
+                {/* <li className="font-hind">
                   <NavLink to="/donation">অনুদান</NavLink>
                 </li>
                 <li className="font-hind">
                   <NavLink to="/contactus">যোগাযোগ</NavLink>
-                </li>
+                </li> */}
                 <li>
                   <label className="swap swap-rotate">
                     {/* Theme toggle */}
@@ -157,6 +163,12 @@ const Navbar = () => {
             </li>
             <li className="font-hind">
               <SidebarNavLink to="/fatwa">ইসলামী ফতোয়া</SidebarNavLink>
+            </li>
+            <li className="font-hind">
+              <NavLink to="/bukhari">সহীহ বুখারী</NavLink>
+            </li>
+            <li className="font-hind">
+              <NavLink to="/muslim">সহীহ মুসলিম</NavLink>
             </li>
             <li className="font-hind">
               <SidebarNavLink to="/donation">অনুদান</SidebarNavLink>

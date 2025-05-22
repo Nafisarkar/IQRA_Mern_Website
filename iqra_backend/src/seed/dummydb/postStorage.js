@@ -48,6 +48,34 @@ const dataset = {
       status: "published",
       views: 120,
     },
+    {
+      title: "বুখারীর হাদিস",
+      english:
+        "The most beloved action to Allah is the most regular and constant even if it were little.",
+      arabic: "أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ أَدْومُهَا وَإِنْ قَلَّ",
+      bangla:
+        "আল্লাহর কাছে সবচেয়ে প্রিয় কাজ হল নিয়মিত এবং অবিচলিত, এমনকি তা ছোট হলেও।",
+      category: "bukhari",
+      tags: ["consistency", "action", "bukhari"],
+      author: "imam-bukhari",
+      slug: "beloved-action",
+      status: "published",
+      views: 88,
+    },
+    {
+      title: "মুসলিমের হাদিস",
+      english:
+        "A true Muslim is one from whose tongue and hands other Muslims are safe.",
+      arabic: "المسلم من سلم المسلمون من لسانه ويده",
+      bangla:
+        "সত্যিকারের মুসলিম হল সেই ব্যক্তি যার জিহ্বা ও হাত থেকে অন্য মুসলিমরা নিরাপদ থাকে।",
+      category: "muslim",
+      tags: ["safety", "behavior", "muslim"],
+      author: "imam-muslim",
+      slug: "true-muslim",
+      status: "published",
+      views: 110,
+    },
   ],
 };
 

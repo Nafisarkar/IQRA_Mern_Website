@@ -19,6 +19,9 @@ import Adminpage from "./components/pages/adminpage";
 import Postpage from "./components/pages/postpage";
 import UsersContent from "./components/admin/UsersContent";
 import EditPost from "./components/admin/EditPost";
+import FPostpage from "./components/pages/fpostpage";
+import Muslimpage from "./components/pages/muslimpage";
+import Bukharipage from "./components/pages/bukharipage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -70,8 +73,11 @@ const App = () => {
               <Route path="/quran" element={<Quranpage />} />
               <Route path="/hadith" element={<Hadispage />} />
               <Route path="/fatwa" element={<Fatwapage />} />
+              <Route path="/bukhari" element={<Bukharipage />} />
+              <Route path="/muslim" element={<Muslimpage />} />
               <Route path="/admin" element={<Adminpage />} />
               <Route path="/post/:postId" element={<Postpage />} />
+              <Route path="/post/fatwa/:postId" element={<FPostpage />} />
               <Route path="/donation" element={<DonationPage />} />
               <Route path="/admin/users" element={<UsersContent />} />
               <Route path="/admin/edit-post/:postId" element={<EditPost />} />
