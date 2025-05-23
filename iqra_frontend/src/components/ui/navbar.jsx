@@ -86,12 +86,12 @@ const Navbar = () => {
                 <li className="font-hind">
                   <NavLink to="/fatwa">ইসলামী ফতোয়া</NavLink>
                 </li>
-                <li className="font-hind">
+                {/* <li className="font-hind">
                   <NavLink to="/bukhari">সহীহ বুখারী</NavLink>
                 </li>
                 <li className="font-hind">
                   <NavLink to="/muslim">সহীহ মুসলিম</NavLink>
-                </li>
+                </li> */}
                 <li className="font-hind">
                   <NavLink to="/hadith-books">হাদীসের কিতাব সমূহ</NavLink>
                 </li>
@@ -167,12 +167,12 @@ const Navbar = () => {
             <li className="font-hind">
               <SidebarNavLink to="/fatwa">ইসলামী ফতোয়া</SidebarNavLink>
             </li>
-            <li className="font-hind">
+            {/* <li className="font-hind">
               <NavLink to="/bukhari">সহীহ বুখারী</NavLink>
             </li>
             <li className="font-hind">
               <NavLink to="/muslim">সহীহ মুসলিম</NavLink>
-            </li>
+            </li> */}
             <li className="font-hind">
               <NavLink to="/hadith-books">হাদীসের কিতাব সমূহ</NavLink>
             </li>
