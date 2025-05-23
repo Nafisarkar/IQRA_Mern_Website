@@ -178,6 +178,10 @@ const EditPost = () => {
             <option value="fatwa">ফতোয়া</option>
             <option value="bukhari">সহীহ বুখারী</option>
             <option value="muslim">সহীহ মুসলিম</option>
+            <option value="dawood">সুনানে আবু দাউদ</option>
+            <option value="tirmidhi">সুনান আত-তিরমিযি</option>
+            <option value="nasa'i">সুনানে নাসাই</option>
+            <option value="majah">সুনানে ইবনে মাজাহ</option>
           </select>
         </div>
 

@@ -92,6 +92,9 @@ const Navbar = () => {
                 <li className="font-hind">
                   <NavLink to="/muslim">সহীহ মুসলিম</NavLink>
                 </li>
+                <li className="font-hind">
+                  <NavLink to="/hadith-books">হাদীসের কিতাব সমূহ</NavLink>
+                </li>
                 {/* <li className="font-hind">
                   <NavLink to="/donation">অনুদান</NavLink>
                 </li>
@@ -170,6 +173,10 @@ const Navbar = () => {
             <li className="font-hind">
               <NavLink to="/muslim">সহীহ মুসলিম</NavLink>
             </li>
+            <li className="font-hind">
+              <NavLink to="/hadith-books">হাদীসের কিতাব সমূহ</NavLink>
+            </li>
+
             <li className="font-hind">
               <SidebarNavLink to="/donation">অনুদান</SidebarNavLink>
             </li>

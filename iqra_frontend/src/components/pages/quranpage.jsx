@@ -22,7 +22,7 @@ const Quranpage = () => {
   const lastFetched = useSelector(selectLastFetched);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortOrder, setSortOrder] = useState("desc"); // 'asc', 'desc' (default to descending/reversed)
+  const [sortOrder, setSortOrder] = useState("asc"); // 'asc', 'desc' (default to descending/reversed)
 
   useEffect(() => {
     const now = Date.now();
@@ -63,12 +63,12 @@ const Quranpage = () => {
         <input
           type="text"
           placeholder="Search by title..."
-          className="input input-bordered w-full rounded-r-none sm:flex-grow " // Take available space, remove right rounding on sm+
+          className="input input-bordered w-full rounded-r-none sm:flex-grow font-poppins" // Take available space, remove right rounding on sm+
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <select
-          className="select select-bordered  rounded-l-none w-auto "
+          className="select select-bordered  rounded-l-none w-auto font-poppins"
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
         >

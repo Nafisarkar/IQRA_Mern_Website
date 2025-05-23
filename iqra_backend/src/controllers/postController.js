@@ -119,10 +119,23 @@ const addPost = async (req, res, next) => {
     }
 
     // Validate category
-    const validCategories = ["quran", "hadith", "fatwa", "bukhari", "muslim"];
+    const validCategories = [
+      "quran",
+      "hadith",
+      "fatwa",
+      "bukhari",
+      "muslim",
+      "tirmidhi",
+      "dawood",
+      "majah",
+      "nasa'i",
+    ];
     if (!validCategories.includes(category)) {
       return next(
-        createHttpError(400, "Category must be one of: quran, hadith, fatwa")
+        createHttpError(
+          400,
+          "Category must be one of: quran, hadith, fatwa, bukhari, muslim , tirmidhi, dawood, majah, nasa'i"
+        )
       );
     }
 
@@ -243,12 +256,22 @@ const getPostByCatagory = async (req, res, next) => {
     const category = req.params.category.toLowerCase();
 
     // Validate category
-    const validCategories = ["quran", "hadith", "fatwa", "bukhari", "muslim"];
+    const validCategories = [
+      "quran",
+      "hadith",
+      "fatwa",
+      "bukhari",
+      "muslim",
+      "tirmidhi",
+      "dawood",
+      "majah",
+      "nasa'i",
+    ];
     if (!validCategories.includes(category)) {
       return next(
         createHttpError(
           400,
-          "Invalid category. Must be one of: quran, hadith, fatwa, bukhari, muslim"
+          "Invalid category. Must be one of: quran, hadith, fatwa, bukhari, muslim , tirmidhi, dawood, majah, nasa'i"
         )
       );
     }

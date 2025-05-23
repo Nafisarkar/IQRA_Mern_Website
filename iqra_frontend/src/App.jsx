@@ -22,6 +22,7 @@ import EditPost from "./components/admin/EditPost";
 import FPostpage from "./components/pages/fpostpage";
 import Muslimpage from "./components/pages/muslimpage";
 import Bukharipage from "./components/pages/bukharipage";
+import Hadithbookpage from "./components/pages/hadithbookpage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -61,9 +62,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Themecontextprovider>
-        <div className="min-h-screen flex flex-col justify-between max-w-full ">
+        <div className="min-h-screen flex flex-col max-w-full ">
           <Navbar />
-          <div className="container mx-auto lg:w-2/3 ">
+          <div className="container mx-auto lg:w-2/3 flex-grow">
+            {" "}
+            {/* Added flex-grow */}
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/login" element={<Loginpage />} />
@@ -75,6 +78,7 @@ const App = () => {
               <Route path="/fatwa" element={<Fatwapage />} />
               <Route path="/bukhari" element={<Bukharipage />} />
               <Route path="/muslim" element={<Muslimpage />} />
+              <Route path="/hadith-books" element={<Hadithbookpage />} />
               <Route path="/admin" element={<Adminpage />} />
               <Route path="/post/:postId" element={<Postpage />} />
               <Route path="/post/fatwa/:postId" element={<FPostpage />} />
